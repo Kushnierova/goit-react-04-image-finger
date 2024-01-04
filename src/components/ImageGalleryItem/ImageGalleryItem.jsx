@@ -3,16 +3,13 @@ import Modal from 'components/Modal';
 // import PropTypes from 'prop-types';
 import css from './ImageGalleryItem.module.css';
 
-function ImageGalleryItem({pictures}) {
+function ImageGalleryItem({picture}) {
   const [showModal, setShowModal] = useState(false);
 
  const toggleModal = () => {
     setShowModal(!showModal);
   };
   return (
-    <div>
-      <ul className={css.gallery}>
-        {pictures.map(picture => (
           <li className={css.item} key={picture.id}>
             <img
               src={picture.webformatURL}
@@ -31,9 +28,6 @@ function ImageGalleryItem({pictures}) {
               </Modal>
             )}
           </li>
-        ))}
-      </ul>
-    </div>
   );
 }
 // export class ImageGalleryItem extends Component {

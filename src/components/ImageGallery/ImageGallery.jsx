@@ -25,6 +25,7 @@ function ImageGallery({ searchText }) {
     if (!searchText) {
       return;
     }
+    setStatus(Status.PENDING);
     searchImages();
   }, [searchText]);
 
@@ -74,9 +75,12 @@ function ImageGallery({ searchText }) {
   if (status === Status.RESOLVED) {
     return (
       <div>
-        <ImageGalleryItem pictures={pictures} />
-
-        {showMoreButton && <Button onClick={loadMore} title="Load more" />}
+        <ul className={css.gallery}>
+          {pictures.map(picture => (
+            <ImageGalleryItem key={picture.id} picture={picture} />
+          ))}
+          {showMoreButton && <Button onClick={loadMore} title="Load more" />}
+        </ul>
       </div>
     );
   }

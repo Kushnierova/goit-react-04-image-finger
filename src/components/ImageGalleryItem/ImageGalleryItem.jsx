@@ -1,31 +1,28 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import Modal from 'components/Modal';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import css from './ImageGalleryItem.module.css';
 
-export class ImageGalleryItem extends Component {
-  state = { showModal: false };
+function ImageGalleryItem({pictures}) {
+  const [showModal, setShowModal] = useState(false);
 
-  toggleModal = () => {
-    this.setState(prevState => ({
-      showModal: !prevState.showModal,
-    }));
+ const toggleModal = () => {
+    setShowModal(!showModal);
   };
-
-  render() {
-    const { showModal } = this.state;
-    const { picture } = this.props;
-    return (
+  return (
+    <div>
+      <ul className={css.gallery}>
+        {pictures.map(picture => (
           <li className={css.item} key={picture.id}>
             <img
               src={picture.webformatURL}
               alt={picture.tags}
               className={css.img}
-              onClick={this.toggleModal}
+              onClick={toggleModal}
             />
 
             {showModal && (
-              <Modal onClose={this.toggleModal}>
+              <Modal onClose={toggleModal}>
                 <img
                   src={picture.largeImageURL}
                   alt={picture.tags}
@@ -34,17 +31,59 @@ export class ImageGalleryItem extends Component {
               </Modal>
             )}
           </li>
-    );
-  }
+        ))}
+      </ul>
+    </div>
+  );
 }
+// export class ImageGalleryItem extends Component {
+//   state = { showModal: false };
 
-ImageGalleryItem.propTypes = {
-  picture: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    webformatURL: PropTypes.string.isRequired,
-    tags: PropTypes.string.isRequired,
-    largeImageURL: PropTypes.string.isRequired,
-  }).isRequired,
-};
+//   toggleModal = () => {
+//     this.setState(prevState => ({
+//       showModal: !prevState.showModal,
+//     }));
+//   };
+
+//   render() {
+//     const { showModal } = this.state;
+//     const { pictures } = this.props;
+//     return (
+//       <div>
+//         <ul className={css.gallery}>
+//           {pictures.map(picture => (
+//             <li className={css.item} key={picture.id}>
+//               <img
+//                 src={picture.webformatURL}
+//                 alt={picture.tags}
+//                 className={css.img}
+//                 onClick={this.toggleModal}
+//               />
+
+// {showModal && (
+//               <Modal onClose={this.toggleModal}>
+//                 <img
+//                   src={picture.largeImageURL}
+//                   alt={picture.tags}
+//                   className={css.largeImageGalleryItem}
+//                 />
+//               </Modal>
+//             )}
+//             </li>
+//           ))}
+//         </ul>
+//       </div>
+//     );
+//   }
+// }
+
+// ImageGalleryItem.propTypes = {
+//   picture: PropTypes.shape({
+//     id: PropTypes.number.isRequired,
+//     webformatURL: PropTypes.string.isRequired,
+//     tags: PropTypes.string.isRequired,
+//     largeImageURL: PropTypes.string.isRequired,
+//   }).isRequired,
+// };
 
 export default ImageGalleryItem;

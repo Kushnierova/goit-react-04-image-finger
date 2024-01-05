@@ -38,7 +38,7 @@ function ImageGallery({ searchText }) {
       })
       .then(images => {
         if (!images.total) {
-         return Promise.reject(
+          return Promise.reject(
             new Error(`No picture was found for "${searchText}"`)
           );
         }
@@ -53,8 +53,12 @@ function ImageGallery({ searchText }) {
         setError(error);
         setStatus(Status.REJECTED);
       });
-  }, [searchText]);
-
+  }, [searchText, page, perPage]);
+  // Line 56:6:  React Hook useEffect has missing dependencies: 
+  // 'page' and 'perPage'. Either include them or remove the dependency 
+  // array. You can also replace multiple useState variables with useReducer
+  //  if 'setShowMoreButton' needs the current value of 'page' 
+  //  react-hooks/exhaustive-deps
   const loadMore = async () => {
     setImages(state => [...state, ...images]);
   };

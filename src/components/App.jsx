@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Searchbar from './Searchbar';
 import ImageGallery from './ImageGallery';
 
-function App() {
+export function App() {
   const [searchText, setSearchText] = useState(null);
 
   return (
@@ -20,4 +20,3 @@ function App() {
   );
 }
 
-export default App;
